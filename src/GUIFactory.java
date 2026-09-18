@@ -1,12 +1,7 @@
-interface UI{
+interface Button{
     void paint();
 }
-
-interface Button extends UI{
-    @Override
-    void paint();
-}
-interface Checkbox extends UI{
+interface Checkbox{
     void paint();
 }
 
@@ -14,12 +9,12 @@ interface Checkbox extends UI{
 
 class WindowsButton implements Button{
     public void paint(){
-        System.out.println("Windows Button");
+        System.out.println("Rendering Windows Button");
     }
 }
 class WindowsCheckbox implements Checkbox{
     public void paint(){
-        System.out.println("Windows Checkbox");
+        System.out.println("Rendering Windows Checkbox");
     }
 }
 
@@ -27,18 +22,18 @@ class WindowsCheckbox implements Checkbox{
 
 class MacOSButton implements Button{
     public void paint(){
-        System.out.println("MacOS Button");
+        System.out.println("Rendering MacOS Button");
     }
 }
 class MacOSCheckbox implements Checkbox{
     public void paint(){
-        System.out.println("MacOS Checkbox");
+        System.out.println("Rendering MacOS Checkbox");
     }
 }
 
 public interface GUIFactory {
-    UI createButton();
-    UI createCheckbox();
+    Button createButton();
+    Checkbox createCheckbox();
 }
 
 class MacOSFactory implements GUIFactory{

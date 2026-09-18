@@ -6,7 +6,7 @@ public class Main {
         logistics.planDelivery();
 
         GUIFactory factory = new WindowsFactory();
-        UI button = new Button();
-        System.out.println(factory.createButton());
+        Button button = factory.createButton();
+        button.paint();
     }
 }
