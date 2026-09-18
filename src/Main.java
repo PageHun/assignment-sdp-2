@@ -10,13 +10,14 @@ public class Main {
         String destination = null;
         try{
             while(true){
-                System.out.println("========= Delivery =========");
+                System.out.println("======= Delivery System =======");
                 System.out.println("1. Choose the delivery mode");
                 System.out.println("2. Choose the UI platform");
                 System.out.println("3. Add a cargo");
                 System.out.println("4. Choose destination");
                 System.out.println("0. exit");
-                System.out.println("============================");
+                System.out.println("===============================");
+                System.out.print("Your choice: ");
                 int choice = scanner.nextInt();
                 switch (choice) {
                     case 1:
@@ -35,14 +36,15 @@ public class Main {
                         if (checkData(cargo, destination)){
                             break;
                         }
+                        System.out.println("======= Delivery System =======");
                         validateConfiguration(logistics, factory);
                         DeliveryApplication application = new DeliveryApplication(factory);
-                        application.render();
-                        logistics.planDelivery(cargo, destination);
+                        application.render(logistics, cargo, destination);
+                        System.out.println("===============================");
                         return;
                     default:
                         System.out.println("Invalid choice");
-                        return;
+                        break;
                 }
             }
         } catch (Exception e){
@@ -88,10 +90,12 @@ public class Main {
     }
 
     public static Logistics chooseDeliveryMode(Scanner scanner, Logistics logistics){
-        System.out.println("========= Delivery =========");
+        System.out.println("======= Delivery System =======");
         System.out.println("1. ROAD");
         System.out.println("2. SEA");
         System.out.println("0. exit");
+        System.out.println("===============================");
+        System.out.print("Your choice: ");
         int choice = scanner.nextInt();
 
         switch (choice){
@@ -105,10 +109,12 @@ public class Main {
     }
 
     private static GUIFactory chooseUIPlatform(Scanner scanner, GUIFactory factory){
-        System.out.println("========= Delivery =========");
+        System.out.println("======= Delivery System =======");
         System.out.println("1. WINDOWS");
         System.out.println("2. MACOS");
         System.out.println("0. exit");
+        System.out.println("===============================");
+        System.out.print("Your choice: ");
         int choice = scanner.nextInt();
 
         switch (choice){
@@ -121,14 +127,16 @@ public class Main {
     }
 
     private static String setCargo(Scanner scanner){
-        System.out.println("========= Delivery =========");
+        System.out.println("======= Delivery System =======");
         System.out.print("Set cargo: ");
-        return scanner.next();
+        scanner.nextLine();
+        return scanner.nextLine();
     }
 
     private static String setDestination(Scanner scanner){
-        System.out.println("========= Delivery =========");
+        System.out.println("======= Delivery System =======");
         System.out.print("Set destination: ");
-        return scanner.next();
+        scanner.nextLine();
+        return scanner.nextLine();
     }
 }
