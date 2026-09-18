@@ -1,6 +1,6 @@
 public class DeliveryApplication {
-    private Button button;
-    private Checkbox checkbox;
+    private final Button button;
+    private final Checkbox checkbox;
 
     public DeliveryApplication(GUIFactory factory){
         this.button = factory.createButton();

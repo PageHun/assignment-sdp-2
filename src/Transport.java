@@ -1,3 +1,5 @@
+import java.util.List;
+
 public interface Transport {
     void deliver();
 }
@@ -5,12 +7,12 @@ public interface Transport {
 class Truck implements Transport{
     @Override
     public void deliver(){
-        System.out.println("Delivering by land");
+        System.out.println("Truck delivers");
     }
 }
 class Ship implements Transport{
     @Override
     public void deliver(){
-        System.out.println("Delivering by sea");
+        System.out.println("Ship delivers");
     }
 }
