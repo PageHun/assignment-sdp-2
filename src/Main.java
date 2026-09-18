@@ -36,10 +36,16 @@ public class Main {
                         if (checkData(cargo, destination)){
                             break;
                         }
+
+                        if (logistics == null || factory == null) {
+                            defineError(logistics, factory);
+                            break;
+                        }
+
                         System.out.println("======= Delivery System =======");
                         validateConfiguration(logistics, factory);
-                        DeliveryApplication application = new DeliveryApplication(factory);
-                        application.render(logistics, cargo, destination);
+                        DeliveryApplication application = new DeliveryApplication(factory, logistics);
+                        application.render(cargo, destination);
                         System.out.println("===============================");
                         return;
                     default:
@@ -48,7 +54,6 @@ public class Main {
                 }
             }
         } catch (Exception e){
-            defineError(logistics, factory);
             System.out.println("Error: " + e.getMessage());
         }
     }

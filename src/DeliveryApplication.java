@@ -4,13 +4,14 @@ public class DeliveryApplication {
     private final Button button;
     private final Checkbox checkbox;
 
-    public DeliveryApplication(GUIFactory factory){
+    public DeliveryApplication(GUIFactory factory, Logistics logistics){
         this.factory = factory;
+        this.logistics = logistics;
         this.button = factory.createButton();
         this.checkbox = factory.createCheckbox();
     }
 
-    public void render(Logistics logistics, String cargo, String destination){
+    public void render(String cargo, String destination){
         button.paint();
         checkbox.paint();
 
