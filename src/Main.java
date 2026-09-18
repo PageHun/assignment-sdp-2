@@ -4,42 +4,50 @@ public class Main {
 
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
-        GUIFactory factory = new WindowsFactory();
-        Logistics logistics = new RoadLogistics();
-        String cargo = "Laboratory";
-        String destination = "Aktay warehouse";
-
-        while(true){
-            System.out.println("========= Delivery =========");
-            System.out.println("1. Choose the delivery mode");
-            System.out.println("2. Choose the UI platform");
-            System.out.println("3. Add a cargo");
-            System.out.println("4. Choose destination");
-            System.out.println("0. exit");
-            int choice = scanner.nextInt();
-            switch (choice) {
-                case 1:
-                    logistics = chooseDeliveryMode(scanner, logistics);
-                    break;
-                case 2:
-                    factory = chooseUIPlatform(scanner, factory);
-                    break;
-                case 3:
-                    cargo = setCargo(scanner);
-                    break;
-                case 4:
-                    destination = setDestination(scanner);
-                    break;
-                case 0:
-                    validateConfiguration(logistics, factory);
-                    DeliveryApplication application = new DeliveryApplication(factory);
-                    application.render();
-                    logistics.planDelivery(cargo, destination);
-                    return;
-                default:
-                    System.out.println("Invalid choice");
-                    return;
+        GUIFactory factory = null;
+        Logistics logistics = null;
+        String cargo = null;
+        String destination = null;
+        try{
+            while(true){
+                System.out.println("========= Delivery =========");
+                System.out.println("1. Choose the delivery mode");
+                System.out.println("2. Choose the UI platform");
+                System.out.println("3. Add a cargo");
+                System.out.println("4. Choose destination");
+                System.out.println("0. exit");
+                System.out.println("============================");
+                int choice = scanner.nextInt();
+                switch (choice) {
+                    case 1:
+                        logistics = chooseDeliveryMode(scanner, logistics);
+                        break;
+                    case 2:
+                        factory = chooseUIPlatform(scanner, factory);
+                        break;
+                    case 3:
+                        cargo = setCargo(scanner);
+                        break;
+                    case 4:
+                        destination = setDestination(scanner);
+                        break;
+                    case 0:
+                        if (checkData(cargo, destination)){
+                            break;
+                        }
+                        validateConfiguration(logistics, factory);
+                        DeliveryApplication application = new DeliveryApplication(factory);
+                        application.render();
+                        logistics.planDelivery(cargo, destination);
+                        return;
+                    default:
+                        System.out.println("Invalid choice");
+                        return;
+                }
             }
+        } catch (Exception e){
+            defineError(logistics, factory);
+            System.out.println("Error: " + e.getMessage());
         }
     }
     public static void validateConfiguration(Logistics logistics, GUIFactory factory){
@@ -53,6 +61,29 @@ public class Main {
             System.out.println("UI platform: MACOS");
         } else if(factory instanceof WindowsFactory){
             System.out.println("UI platform: WINDOWS");
+        }
+    }
+
+    public static Boolean checkData(String cargo, String destination){
+        if(cargo != null && destination == null){
+            System.out.println("Destination is missing!");
+            return true;
+        } else if(cargo == null && destination != null){
+            System.out.println("Cargo is missing!");
+            return true;
+        } else if(cargo == null && destination == null){
+            System.out.println("Cargo and destination are missing!");
+            return true;
+        } else return false;
+    }
+
+    public static void defineError(Logistics logistics, GUIFactory factory){
+        if(logistics == null && factory != null){
+            System.out.println("Delivery mode is unsupported with a valid UI platform!");
+        } else if(logistics != null && factory == null){
+            System.out.println("UI platform is unsupported with a valid delivery mode!");
+        } else {
+            System.out.println("Both delivery mode and UI platform are unsupported!");
         }
     }
 
