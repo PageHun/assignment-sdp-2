@@ -1,12 +1,23 @@
+import java.util.Scanner;
+
 public class Main {
 
     public static void main(String[] args){
-        Logistics logistics = new RoadLogistics();
-//        logistics = new SeaLogistics();
-        logistics.planDelivery();
+        Scanner scanner = new Scanner(System.in);
+        GUIFactory factory = null;
 
-        GUIFactory factory = new WindowsFactory();
-        Button button = factory.createButton();
-        button.paint();
+        while(true){
+            String OS = scanner.next();
+            if (OS.equals("MAC")){
+                factory = new MacOSFactory();
+                break;
+            } else if(OS.equals("WINDOWS")){
+                factory = new WindowsFactory();
+                break;
+            }
+        }
+
+        DeliveryApplication application = new DeliveryApplication(factory);
+        application.render();
     }
 }
